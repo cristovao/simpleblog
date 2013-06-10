@@ -1,0 +1,27 @@
+<project name="simpleblog" basedir="." default="deploy">
+
+	<target name="create-eclipse-project">
+		<ant antfile="build-complete.xml" target="create-eclipse-project"></ant>
+	</target>
+	
+	<target name="create-war">
+		<ant antfile="build-complete.xml" target="create-war"></ant>
+	</target>
+	
+	<target name="deploy-lib">
+		<ant antfile="build-complete.xml" target="deploy-lib"></ant>
+	</target>
+	
+	<target name="deploy-web">
+		<ant antfile="build-complete.xml" target="deploy-web"></ant>
+	</target>
+	
+	<target name="deploy-fast">
+		<ant antfile="build-complete.xml" target="deploy-fast"></ant>
+	</target>
+	
+	<target name="deploy">
+		<ant antfile="build-complete.xml" target="deploy"></ant>
+	</target>
+
+</project>

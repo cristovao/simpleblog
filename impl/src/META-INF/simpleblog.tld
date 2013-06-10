@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="iso-8859-1" ?> 
+<!DOCTYPE taglib PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN" 
+" http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<taglib>
+	<tlibversion>1.0</tlibversion>
+	<jspversion>1.1</jspversion>
+	<shortname>simpleblog</shortname>
+	<uri>http://simpleblog.com.br/tld/simpleblog</uri>
+	<info>Simple Blog Tags</info>
+
+	<tag>
+		<name>title</name>
+		<tagclass>br.com.simpleblog.taglib.TitleTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>Show custom title</info>
+	</tag>
+	<tag>
+		<name>body</name>
+		<tagclass>br.com.simpleblog.taglib.BodyTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>Show custom body</info>
+	</tag>
+	<tag>
+		<name>input-title</name>
+		<tagclass>br.com.simpleblog.taglib.InputTitleTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>Show custom title</info>
+		<attribute>
+			<name>title</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>input-body</name>
+		<tagclass>br.com.simpleblog.taglib.InputBodyTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>Show custom body</info>
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>script</name>
+		<tagclass>br.com.simpleblog.taglib.ScriptTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute>
+			<name>type</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>input-script</name>
+		<tagclass>br.com.simpleblog.taglib.InputScriptTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute>
+			<name>type</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>src</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>preview</name>
+		<tagclass>br.com.simpleblog.taglib.PreviewTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+	</tag>
+	<tag>
+		<name>list-post</name>
+		<tagclass>br.com.simpleblog.taglib.ListPostTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute>
+			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>date</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>next-page</name>
+		<tagclass>br.com.simpleblog.taglib.NextPageTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute>
+			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>before-page</name>
+		<tagclass>br.com.simpleblog.taglib.BeforePageTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<attribute>
+			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>

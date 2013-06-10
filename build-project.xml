@@ -1,0 +1,43 @@
+<project name="simpleblog-project" basedir=".">
+	<import file="build-common.xml"/>
+	
+	<target name="download-bundle" if="${tomcat.zip.not.exists}">
+		<echo>Esse processo ira dermorar...</echo>
+		<get src="${tomcat.download.link}" dest="${project.dir}"/>
+	</target>
+	
+	<target name="deploy-bundle" if="${tomcat.path.not.exists}" depends="download-bundle">
+		<unzip src="${tomcat.zip}" dest="${project.dir}"></unzip>
+		
+		<move file="${project.dir}/${tomcat.name}" tofile="${tomcat.path}"></move>
+		
+		<delete dir="${tomcat.deploy.path}"></delete>
+		
+		<mkdir dir="${tomcat.deploy.path}"/>
+	</target>
+	
+	<target name="create-eclipse-project">
+		<eclipse>
+			<project name="${ant.project.name}" />
+			<classpath>
+				<source path="${impl.src.path}"/>
+				<output path="bin"/>
+				<library pathref="lib.classpath"/>
+			</classpath>
+		</eclipse>
+	</target>
+	
+	<target name="create-war">
+		<war destfile="${war.file}">
+			<fileset dir="${web.path}"></fileset>
+			<lib dir="${impl.lib.path}"></lib>
+			<lib dir="${impl.path}">
+				<include name="${jar.file}.jar"/>
+			</lib>
+		</war>
+	</target>
+	
+	<target name="deploy">
+		<antcall target="deploy-bundle"></antcall>
+	</target>
+</project>

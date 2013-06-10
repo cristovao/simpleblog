@@ -1,0 +1,74 @@
+<project name="simpleblog-common" basedir=".">
+	<property name="project.dir" value="."></property>
+	
+	<property environment="env"></property>
+	
+	<property file="${project.dir}/build.${user.name}.properties"></property>
+	<property file="${project.dir}/build.${env.COMPUTERNAME}.properties"></property>
+	<property file="${project.dir}/build.properties"></property>
+
+	<!-- Defined Defaults Path -->
+	<property name="lib.path" value="${project.dir}/lib"></property>
+	<property name="impl.path" value="${project.dir}/impl"></property>
+	<property name="impl.src.path" value="${impl.path}/src"></property>
+	<property name="impl.lib.path" value="${impl.path}/lib"></property>
+	<property name="impl.classes.path" value="${impl.path}/classes"></property>
+	
+	<property name="web.path" value="${project.dir}/web"></property>
+	<property name="web.web-inf.path" value="${web.path}/WEB-INF"></property>
+	
+	<property name="war.file" value="${project.dir}/${ant.project.name}.war"></property>
+	<property name="jar.file" value="${ant.project.name}"></property>
+	
+	<property name="tomcat.name" value="apache-tomcat-7.0.40"></property>
+	<property name="tomcat.name.zip" value="${tomcat.name}.zip"></property>
+	<property name="tomcat.download.link" value="http://ftp.unicamp.br/pub/apache/tomcat/tomcat-7/v7.0.40/bin/${tomcat.name.zip}"></property>
+	<property name="tomcat.zip" value="${project.dir}/${tomcat.name.zip}"></property>
+	
+	<condition property="tomcat.zip.not.exists">
+		<not>
+			<available file="${tomcat.zip}"/>
+		</not>
+	</condition>
+	
+	<property name="tomcat.path" value="${project.dir}/tomcat"></property>
+	<available property="tomcat.path.exists" type="dir" file="${tomcat.path}"/>
+	<condition property="tomcat.path.not.exists">
+		<not>
+			<available file="${tomcat.path}"/>
+		</not>
+	</condition>
+	<property name="tomcat.deploy.path" value="${tomcat.path}/webapps"></property>
+	<property name="tomcat.root.path" value="${tomcat.deploy.path}/ROOT"></property>
+	<available property="tomcat.root.path.exists" type="dir" file="${tomcat.root.path}"/>
+	<property name="tomcat.webinf.path" value="${tomcat.root.path}/WEB-INF"></property>
+	<property name="tomcat.lib.path" value="${tomcat.webinf.path}/lib"></property>
+	
+	<fail message="Please use Java in version 6">
+		<condition>
+			<not>
+				<equals arg1="${java.specification.version}" arg2="1.6" />
+			</not>
+		</condition>
+	</fail>
+	
+	<fail message="Please use Ant 1.7.0 or above">
+		<condition>
+			<not>
+				<antversion atleast="1.7.0"/>
+			</not>
+		</condition>
+	</fail>
+	
+	<path id="lib.classpath">
+		<fileset dir="${lib.path}" includes="**/*.jar"></fileset>
+		<fileset dir="${impl.lib.path}" includes="**/*.jar"></fileset>
+	</path>
+	
+	<path id="project.classpath">
+		<pathelement path="${impl.classes.path}"/>
+		<path refid="lib.classpath"></path>
+	</path>
+	
+	<taskdef name="eclipse" classpathref="project.classpath" classname="prantl.ant.eclipse.EclipseTask"></taskdef>
+</project>

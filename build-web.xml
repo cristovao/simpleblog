@@ -1,0 +1,27 @@
+<project name="simpleblog-web" basedir=".">
+	<import file="build-common.xml"/>
+	
+	<target name="deploy-web" if="${tomcat.path.exists}">
+		<mkdir dir="${tomcat.root.path}"/>
+		<copy verbose="true" todir="${tomcat.root.path}" overwrite="true">
+			<fileset dir="${web.path}">
+				<exclude name="**/*.svn/*"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="deploy-fast" if="${tomcat.path.exists}">
+		<mkdir dir="${tomcat.root.path}"/>
+		<copy verbose="true" todir="${tomcat.root.path}" overwrite="true">
+			<fileset dir="${web.path}">
+				<exclude name="**/*.svn/*"/>
+				<exclude name="WEB-INF/*"/>
+				<exclude name="META-INF/*"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="deploy">
+		<antcall target="deploy-web"></antcall>
+	</target>
+</project>

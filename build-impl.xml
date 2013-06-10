@@ -1,0 +1,50 @@
+<project name="simpleblog-impl" basedir="." default="deploy">
+	<import file="build-common.xml"/>
+	
+	<target name="compile">
+		<mkdir dir="${impl.classes.path}"/>
+		
+		<javac
+			classpathref="project.classpath"
+			compiler="${javac.compiler}"
+			debug="${javac.debug}"
+			deprecation="${javac.deprecation}"
+			destdir="${impl.classes.path}"
+			fork="${javac.fork}"
+			memoryMaximumSize="${javac.memoryMaximumSize}"
+			nowarn="${javac.nowarn}"
+			srcdir="${impl.src.path}"
+			encoding="${javac.encoding}"
+		/>
+		
+		<copy todir="${impl.classes.path}" overwrite="true">
+			<fileset dir="${impl.src.path}">
+				<include name="**/dependencies/**"/>
+				<include name="**/*.xml"/>
+				<include name="**/*.tld"/>
+				<include name="**/*.properties"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="jar" depends="compile">
+		<jar basedir="${impl.classes.path}" jarfile="${impl.path}/${jar.file}.jar"/>
+	</target>
+	
+	<target name="deploy-lib" if="${tomcat.path.exists}">
+		<copy todir="${tomcat.lib.path}" flatten="true" overwrite="true" verbose="true" failonerror="false">
+			<fileset dir="${impl.lib.path}">
+				<include name="**/*.jar"/>
+			</fileset>
+		</copy>
+	</target>
+	
+	<target name="deploy-compiled" depends="jar" if="${tomcat.path.exists}">
+		<copy file="${impl.path}/${jar.file}.jar" todir="${tomcat.lib.path}" overwrite="true" verbose="true"></copy>
+	</target>
+	
+	<target name="deploy" if="${tomcat.path.exists}">
+		<antcall target="deploy-lib"></antcall>
+		<antcall target="deploy-compiled"></antcall>
+	</target>
+</project>
