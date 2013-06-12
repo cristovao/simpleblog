@@ -13,19 +13,19 @@
 		<name>title</name>
 		<tagclass>br.com.simpleblog.taglib.TitleTag</tagclass>
 		<bodycontent>JSP</bodycontent>
-		<info>Show custom title</info>
+		<info>Mostra o titulo da pagina, esta tag tem sua funcao melhor definida no arquivo decorator.jsp</info>
 	</tag>
 	<tag>
 		<name>body</name>
 		<tagclass>br.com.simpleblog.taglib.BodyTag</tagclass>
 		<bodycontent>JSP</bodycontent>
-		<info>Show custom body</info>
+		<info>Serve para trazer o corpo de uma dada area, podendo ser: post, main e about</info>
 	</tag>
 	<tag>
 		<name>input-title</name>
 		<tagclass>br.com.simpleblog.taglib.InputTitleTag</tagclass>
 		<bodycontent>JSP</bodycontent>
-		<info>Show custom title</info>
+		<info>Insere o titulo que sera exibido ou na tag title ou entao no corpo de main</info>
 		<attribute>
 			<name>title</name>
 			<required>false</required>
@@ -41,7 +41,7 @@
 		<name>input-body</name>
 		<tagclass>br.com.simpleblog.taglib.InputBodyTag</tagclass>
 		<bodycontent>JSP</bodycontent>
-		<info>Show custom body</info>
+		<info>Esta sendo usado no escopo do post, para exibir o conteudo do mesmo com base no template</info>
 		<attribute>
 			<name>var</name>
 			<required>false</required>
@@ -52,6 +52,7 @@
 		<name>script</name>
 		<tagclass>br.com.simpleblog.taglib.ScriptTag</tagclass>
 		<bodycontent>JSP</bodycontent>
+		<info>Esse comando serve para externa as chamadas de scripts ou arquivos externos que sao colocados nas clausulas de input-script com base de seu tipo definido</info>
 		<attribute>
 			<name>type</name>
 			<required>true</required>
@@ -67,6 +68,7 @@
 		<name>input-script</name>
 		<tagclass>br.com.simpleblog.taglib.InputScriptTag</tagclass>
 		<bodycontent>JSP</bodycontent>
+		<info>Serve para enviar uma dada chamada de script ou arquivo externo, isso sera chamada na tag script</info>
 		<attribute>
 			<name>type</name>
 			<required>true</required>
@@ -82,11 +84,13 @@
 		<name>preview</name>
 		<tagclass>br.com.simpleblog.taglib.PreviewTag</tagclass>
 		<bodycontent>JSP</bodycontent>
+		<info>Isso sera util quando desejado apenas exibir um pequeno pedaco do texto ao inves do texto inteiro de um post</info>
 	</tag>
 	<tag>
 		<name>list-post</name>
 		<tagclass>br.com.simpleblog.taglib.ListPostTag</tagclass>
 		<bodycontent>JSP</bodycontent>
+		<info>Esse comando esta sendo usado no main, serve para listar os posts com base de suas datas</info>
 		<attribute>
 			<name>var</name>
 			<required>true</required>
@@ -102,6 +106,7 @@
 		<name>next-page</name>
 		<tagclass>br.com.simpleblog.taglib.NextPageTag</tagclass>
 		<bodycontent>JSP</bodycontent>
+		<info>Coloca o link para a proxima pagina, na diretiva main</info>
 		<attribute>
 			<name>var</name>
 			<required>true</required>
@@ -112,8 +117,25 @@
 		<name>before-page</name>
 		<tagclass>br.com.simpleblog.taglib.BeforePageTag</tagclass>
 		<bodycontent>JSP</bodycontent>
+		<info>Coloca um link para a pagina anterior</info>
 		<attribute>
 			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>date</name>
+		<tagclass>br.com.simpleblog.taglib.DateTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>Exibe a data em formato mais legível</info>
+		<attribute>
+			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>format</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

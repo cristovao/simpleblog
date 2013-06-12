@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletResponse;
 
+import br.com.simpleblog.taglib.DateTag;
 import br.com.simpleblog.taglib.InputBodyTag;
 import br.com.simpleblog.util.Blog.PostRequest;
 import br.com.simpleblog.util.Default;
@@ -32,6 +33,8 @@ public class PostServlet extends HttpServlet {
 						.getRequestDispatcher(postRequest.getPathJSP());
 				
 				req.setAttribute("postPath", postRequest.getPath());
+				
+				req.setAttribute(DateTag.class.getSimpleName(), postRequest.getPostDate());
 				
 				includerequestDispatcher.include(req, bufferedHttpResponseWrapper);
 				

@@ -25,10 +25,12 @@ public class ListPostTag extends BodyTagSupport {
 		private String body;
 		private String link;
 		private String title;
+		private Date date;
 
-		public Post(String body, String link, String title) {
+		public Post(String body, String link, String title, Date date) {
 			this.body = body;
 			this.link = link;
+			this.date = date;
 			if (title != null) {
 				this.title = title;
 			} else {
@@ -46,6 +48,10 @@ public class ListPostTag extends BodyTagSupport {
 
 		public String getTitle() {
 			return title;
+		}
+		
+		public Date getDate() {
+			return date;
 		}
 	}
 
@@ -73,7 +79,9 @@ public class ListPostTag extends BodyTagSupport {
 		}
 
 		if (!postQueue.isEmpty()) {
-			pageContext.setAttribute(getVar(), postQueue.poll());
+			Post poll = postQueue.poll();
+			pageContext.setAttribute(DateTag.class.getSimpleName(), poll.getDate());
+			pageContext.setAttribute(getVar(), poll);
 
 			return EVAL_BODY_INCLUDE;
 		}
@@ -85,7 +93,9 @@ public class ListPostTag extends BodyTagSupport {
 	public int doAfterBody() throws JspException {
 
 		if (!postQueue.isEmpty()) {
-			pageContext.setAttribute(getVar(), postQueue.poll());
+			Post poll = postQueue.poll();
+			pageContext.setAttribute(DateTag.class.getSimpleName(), poll.getDate());
+			pageContext.setAttribute(getVar(), poll);
 
 			return EVAL_BODY_AGAIN;
 		}
@@ -139,7 +149,7 @@ public class ListPostTag extends BodyTagSupport {
 				body = wrapper.getOutput().trim();
 			}
 			
-			post = new Post(body, postRequest.getWebPathPost(), title);
+			post = new Post(body, postRequest.getWebPathPost(), title, postRequest.getPostDate());
 		}
 
 		return post;

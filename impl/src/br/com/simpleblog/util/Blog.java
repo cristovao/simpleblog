@@ -86,6 +86,24 @@ public class Blog {
 			return Blog.this;
 		}
 	}
+	
+	public static class DateFileFilter implements FileFilter {
+
+		private String name;
+		private String minus;
+		
+		public DateFileFilter(String name, String minus) {
+			this.name = name;
+			this.minus = minus;
+		}
+		
+		@Override
+		public boolean accept(File file) {
+			return file.isDirectory()
+					&& (name+file.getName()).compareTo(minus) <= 0;
+		}
+		
+	}
 
 	private String name;
 
@@ -106,7 +124,8 @@ public class Blog {
 			requestURI = "/" + requestURI;
 		}
 
-		requestURI = requestURI.replaceFirst("/" + getName()+"/"+PATH_POST+"/", "");
+		requestURI = requestURI.replaceFirst("/" + getName() + "/" + PATH_POST
+				+ "/", "");
 
 		if (requestURI.endsWith("/")) {
 			requestURI = requestURI.substring(0, requestURI.length() - 1);
@@ -137,78 +156,74 @@ public class Blog {
 
 		File file = new File(realPath);
 
-		String yearMinus = convert(calendar.get(Calendar.YEAR));
-		String monthMinus = yearMinus + ""
-				+ convert(calendar.get(Calendar.MONTH));
-		String dayMinus = monthMinus + ""
-				+ convert(calendar.get(Calendar.DAY_OF_MONTH));
-		String hourMinus = dayMinus + ""
-				+ convert(calendar.get(Calendar.HOUR_OF_DAY)) + ""
-				+ convert(calendar.get(Calendar.MINUTE)) + ""
-				+ convert(calendar.get(Calendar.SECOND));
+		if (file.exists()) {
+			String yearMinus = convert(calendar.get(Calendar.YEAR));
+			String monthMinus = yearMinus + ""
+					+ convert(calendar.get(Calendar.MONTH)+1);
+			String dayMinus = monthMinus + ""
+					+ convert(calendar.get(Calendar.DAY_OF_MONTH));
+			String hourMinus = dayMinus + ""
+					+ convert(calendar.get(Calendar.HOUR_OF_DAY)) + ""
+					+ convert(calendar.get(Calendar.MINUTE)) + ""
+					+ convert(calendar.get(Calendar.SECOND));
 
-		File[] yearArray = listFiles("", file, yearMinus);
+			File[] yearArray = listFiles("", file, yearMinus);
 
-		for (File year : yearArray) {
-			File[] monthArray = listFiles(year.getName(), year, monthMinus);
+			for (File year : yearArray) {
+				File[] monthArray = listFiles(year.getName(), year, monthMinus);
 
-			for (File month : monthArray) {
-				File[] dayArray = listFiles(year.getName() + month.getName(),
-						month, dayMinus);
+				for (File month : monthArray) {
+					File[] dayArray = listFiles(
+							year.getName() + month.getName(), month, dayMinus);
 
-				for (File day : dayArray) {
+					for (File day : dayArray) {
 
-					File[] hourArray = listFiles(
-							year.getName() + month.getName() + day.getName(),
-							day, hourMinus);
+						File[] hourArray = listFiles(
+								year.getName() + month.getName()
+										+ day.getName(), day, hourMinus);
 
-					for (File hour : hourArray) {
-						StringBuilder pathBuilder = new StringBuilder();
-						pathBuilder.append(year.getName());
-						pathBuilder.append("/");
-						pathBuilder.append(month.getName());
-						pathBuilder.append("/");
-						pathBuilder.append(day.getName());
-						pathBuilder.append("/");
-						pathBuilder.append(hour.getName());
+						for (File hour : hourArray) {
+							StringBuilder pathBuilder = new StringBuilder();
+							pathBuilder.append(year.getName());
+							pathBuilder.append("/");
+							pathBuilder.append(month.getName());
+							pathBuilder.append("/");
+							pathBuilder.append(day.getName());
+							pathBuilder.append("/");
+							pathBuilder.append(hour.getName());
 
-						String path = pathBuilder.toString();
+							String path = pathBuilder.toString();
 
-						try {
-							postRequestSet.add(new PostRequest(path));
-						} catch (ParseException e) {
-							System.out.println(e.getMessage());
+							try {
+								postRequestSet.add(new PostRequest(path));
+							} catch (ParseException e) {
+								System.out.println(e.getMessage());
+							}
 						}
 					}
 				}
 			}
 		}
-		
-		TreeSet<PostRequest> treeSet = new TreeSet<Blog.PostRequest>(Collections.reverseOrder(new Comparator<PostRequest>() {
 
-			@Override
-			public int compare(PostRequest o1, PostRequest o2) {
-				return o1.compareTo(o2);
-			}
-			
-		}));
-		
+		TreeSet<PostRequest> treeSet = new TreeSet<Blog.PostRequest>(
+				Collections.reverseOrder(new Comparator<PostRequest>() {
+
+					@Override
+					public int compare(PostRequest o1, PostRequest o2) {
+						return o1.compareTo(o2);
+					}
+
+				}));
+
 		treeSet.addAll(postRequestSet);
-		
+
 		return treeSet;
 	}
 
-	private File[] listFiles(final String prefix, File file,
-			final String minusText) {
+	private File[] listFiles(String prefix, File file,
+			String minusText) {
 
-		return file.listFiles(new FileFilter() {
-
-			@Override
-			public boolean accept(File file) {
-				return file.isDirectory()
-						&& (prefix + file.getName()).compareTo(minusText) <= 0;
-			}
-		});
+		return file.listFiles(new DateFileFilter(prefix, minusText));
 	}
 
 	private String convert(int value) {
