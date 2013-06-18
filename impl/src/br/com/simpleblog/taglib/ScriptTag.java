@@ -7,12 +7,14 @@ import java.util.Queue;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.BodyTagSupport;
 
+@SuppressWarnings("serial")
 public class ScriptTag extends BodyTagSupport {
 
 	private String var;
 	private String type;
 	private Queue<String> printQueue;
 	
+	@SuppressWarnings("unchecked")
 	@Override
 	public int doStartTag() throws JspException {
 		List<String> typeList = (List<String>)pageContext.getRequest().getAttribute(getType());

@@ -1,5 +1,7 @@
 package br.com.simpleblog.util;
 
+import java.io.File;
+
 import javax.servlet.http.HttpServletRequest;
 
 public enum Default {
@@ -24,7 +26,7 @@ public enum Default {
 	
 	public String getPath(HttpServletRequest request) {
 		
-		String requestURI = (String)request.getRequestURI();
+		String requestURI = (String)request.getRequestURI().replace("/web/", "");
 		
 		String[] uriArray = requestURI.split("/");
 		
@@ -61,6 +63,15 @@ public enum Default {
 			if (local != DECORATOR && local.isPath(requestURI)) {
 				result = local;
 				break;
+			}
+		}
+		
+		String[] split = requestURI.replace("/web/", "").split("/");
+		if (result == null && split.length > 0) {
+			File realFolder = new File(request.getServletContext().getRealPath("/"+split[0]));
+			
+			if (realFolder.exists()) {
+				result = MAIN;
 			}
 		}
 		

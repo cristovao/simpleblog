@@ -65,6 +65,17 @@
 		</attribute>
 	</tag>
 	<tag>
+		<name>check-script</name>
+		<tagclass>br.com.simpleblog.taglib.CheckScriptTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>Verifica se existem scripts para serem impressos</info>
+		<attribute>
+			<name>type</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
 		<name>input-script</name>
 		<tagclass>br.com.simpleblog.taglib.InputScriptTag</tagclass>
 		<bodycontent>JSP</bodycontent>

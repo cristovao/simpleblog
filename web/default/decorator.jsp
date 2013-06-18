@@ -11,13 +11,15 @@
 		<simpleblog:script var="link" type="css">
 			<link href="${link}" media="screen, projection" rel="stylesheet" type="text/css"></link>
 		</simpleblog:script>
-		<script type='text/javascript'>
-			jQuery(document).ready({
-				<simpleblog:script var="script" type="content">
-					${script}
-				</simpleblog:script>
-			});
-		</script>
+		<simpleblog:check-script type="content" >
+			<script type='text/javascript'>
+				jQuery(document).ready({
+					<simpleblog:script var="script" type="content">
+						${script}
+					</simpleblog:script>
+				});
+			</script>
+		</simpleblog:check-script>
 	</head>
 	<body>
 		<simpleblog:body/>
