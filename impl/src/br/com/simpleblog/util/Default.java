@@ -67,7 +67,7 @@ public enum Default {
 		}
 		
 		String[] split = requestURI.replace("/web/", "").split("/");
-		if (result == null && split.length > 0) {
+		if (result == null && split.length > 0 && !split[0].equals("default")) {
 			File realFolder = new File(request.getServletContext().getRealPath("/"+split[0]));
 			
 			if (realFolder.exists()) {
