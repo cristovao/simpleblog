@@ -39,6 +39,8 @@ public class RedirectFilter implements Filter {
 				redirect = Default.MAIN;
 			}
 			
+			blogHttpServletRequestWrapper.setAttribute("blogPath", blogHttpServletRequestWrapper.getBlog().getPath());
+			
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(redirect.getPath());
 			
 			requestDispatcher.forward(blogHttpServletRequestWrapper, response);

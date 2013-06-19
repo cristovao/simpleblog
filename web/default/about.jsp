@@ -1,8 +1,8 @@
 <%@ include file="/common.jsp" %>
 
-<simpleblog:input-script src="/default/js/about.js" type="script"/>
+<%-- <simpleblog:input-script src="/default/js/about.js" type="script"/> --%>
 
-<simpleblog:input-script src="/default/css/about.css" type="css"/>
+<%-- <simpleblog:input-script src="/default/css/about.css" type="css"/> --%>
 
 <simpleblog:input-title title="Sobre o SimpleBlog">
 <h1>Sobre o SimpleBlog</h1>

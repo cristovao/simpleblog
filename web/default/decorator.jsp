@@ -4,7 +4,6 @@
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>Simple Blog: <simpleblog:title/></title>
-		<script type="text/javascript" src="/default/js/jquery-2.0.1.js" ></script>
 		<simpleblog:script var="script" type="script">
 			<script type="text/javascript" src="${script}" ></script>
 		</simpleblog:script>

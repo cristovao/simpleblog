@@ -114,6 +114,10 @@ public class Blog {
 	public String getName() {
 		return name;
 	}
+	
+	public String getPath() {
+		return "/"+getName();
+	}
 
 	public PostRequest getPost(HttpServletRequest request)
 			throws ParseException {
