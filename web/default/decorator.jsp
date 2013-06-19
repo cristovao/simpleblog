@@ -12,11 +12,9 @@
 		</simpleblog:script>
 		<simpleblog:check-script type="content" >
 			<script type='text/javascript'>
-				jQuery(document).ready({
-					<simpleblog:script var="script" type="content">
-						${script}
-					</simpleblog:script>
-				});
+				<simpleblog:script var="script" type="content">
+					${script}
+				</simpleblog:script>
 			</script>
 		</simpleblog:check-script>
 	</head>
