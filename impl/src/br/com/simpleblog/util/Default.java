@@ -60,14 +60,14 @@ public enum Default {
 		Default result = null;
 		
 		for (Default local : values()) {
-			if (local != DECORATOR && local.isPath(requestURI)) {
+			if (local != DECORATOR && local != ERROR && local.isPath(requestURI)) {
 				result = local;
 				break;
 			}
 		}
 		
 		String[] split = requestURI.replace("/web/", "").split("/");
-		if (result == null && split.length > 0 && !split[0].equals("default")) {
+		if (result == null && split.length < 2 && !split[0].equals("default")) {
 			File realFolder = new File(request.getServletContext().getRealPath("/"+split[0]));
 			
 			if (realFolder.exists()) {

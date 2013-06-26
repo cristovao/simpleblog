@@ -1,10 +1,12 @@
 package br.com.simpleblog.servlet;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletRequestWrapper;
 
 import br.com.simpleblog.util.Blog;
 import br.com.simpleblog.util.ContainerBlog;
+import br.com.simpleblog.util.Default;
 
 public class BlogHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
@@ -58,6 +60,26 @@ public class BlogHttpServletRequestWrapper extends HttpServletRequestWrapper {
 
 		return containerBlog;
 		
+	}
+	
+	public RequestDispatcher getRequestDispatcher() {
+		
+		RequestDispatcher requestDispatcher = null;
+		
+		Default redirect = Default.get(this);
+		
+		String page = null;
+		if (redirect == null && (page = getBlog().getPage(this)) != null) {
+			requestDispatcher = super.getRequestDispatcher(page);
+		}
+		
+		if (redirect != null && requestDispatcher == null) {
+			requestDispatcher = super.getRequestDispatcher(redirect.getPath());
+		} else if (requestDispatcher == null) {
+			requestDispatcher = super.getRequestDispatcher(Default.ERROR.getPath(this));
+		}
+		
+		return requestDispatcher;
 	}
 
 }

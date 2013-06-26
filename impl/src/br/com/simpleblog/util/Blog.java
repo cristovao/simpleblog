@@ -86,23 +86,23 @@ public class Blog {
 			return Blog.this;
 		}
 	}
-	
+
 	public static class DateFileFilter implements FileFilter {
 
 		private String name;
 		private String minus;
-		
+
 		public DateFileFilter(String name, String minus) {
 			this.name = name;
 			this.minus = minus;
 		}
-		
+
 		@Override
 		public boolean accept(File file) {
 			return file.isDirectory()
-					&& (name+file.getName()).compareTo(minus) <= 0;
+					&& (name + file.getName()).compareTo(minus) <= 0;
 		}
-		
+
 	}
 
 	private String name;
@@ -114,9 +114,9 @@ public class Blog {
 	public String getName() {
 		return name;
 	}
-	
+
 	public String getPath() {
-		return "/"+getName();
+		return "/" + getName();
 	}
 
 	public PostRequest getPost(HttpServletRequest request)
@@ -163,7 +163,7 @@ public class Blog {
 		if (file.exists()) {
 			String yearMinus = convert(calendar.get(Calendar.YEAR));
 			String monthMinus = yearMinus + ""
-					+ convert(calendar.get(Calendar.MONTH)+1);
+					+ convert(calendar.get(Calendar.MONTH) + 1);
 			String dayMinus = monthMinus + ""
 					+ convert(calendar.get(Calendar.DAY_OF_MONTH));
 			String hourMinus = dayMinus + ""
@@ -224,8 +224,7 @@ public class Blog {
 		return treeSet;
 	}
 
-	private File[] listFiles(String prefix, File file,
-			String minusText) {
+	private File[] listFiles(String prefix, File file, String minusText) {
 
 		return file.listFiles(new DateFileFilter(prefix, minusText));
 	}
@@ -236,6 +235,22 @@ public class Blog {
 		}
 
 		return "" + value;
+	}
+
+	public String getPage(HttpServletRequest request) {
+		String requestURI = (String) request.getRequestURI().replace("/web/",
+				"");
+
+		String[] uriArray = requestURI.split("/");
+
+		if (uriArray.length == 2) {
+			String path = "/" + uriArray[0] + "/" + uriArray[1]+ ".jsp";
+
+			if (request.getServletContext().getResourceAsStream(path) != null) {
+				return path;
+			}
+		}
+		return null;
 	}
 
 }
