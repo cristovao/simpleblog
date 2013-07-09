@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import br.com.simpleblog.taglib.BodyTag;
 import br.com.simpleblog.util.Default;
 
-@WebFilter(urlPatterns="/web/*")
+@WebFilter(urlPatterns="/*")
 public class DecoratorFilter implements Filter {
 	
 	@Override
@@ -30,7 +30,13 @@ public class DecoratorFilter implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest)request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse)response;
 
-		if (Default.isValid(httpServletRequest)) {
+		if (httpServletRequest.getRequestURI().matches("/.*/[A-Za-z_0-9]*\\.[A-Za-z_0-9]*")) {
+			chain.doFilter(request, response);
+		} 
+		
+		BlogHttpServletRequestWrapper blogHttpServletRequestWrapper = new BlogHttpServletRequestWrapper(httpServletRequest);
+		
+		if (blogHttpServletRequestWrapper.hasBlog()) {
 			BufferedHttpResponseWrapper bufferedHttpResponseWrapper = new BufferedHttpResponseWrapper(httpServletResponse);
 			
 			chain.doFilter(request, bufferedHttpResponseWrapper);
@@ -42,8 +48,6 @@ public class DecoratorFilter implements Filter {
 			RequestDispatcher requestDispatcher = request.getRequestDispatcher(decorator);
 			
 			requestDispatcher.forward(request, response);
-		} else {
-			chain.doFilter(request, response);
 		}
 		
 	}

@@ -9,8 +9,7 @@ public enum Default {
 	DECORATOR("decorator.jsp"),
 	MAIN("main.jsp", "/main"),
 	POST("post.jsp", "/post"),
-	ERROR("404.jsp", "/error"),
-	ABOUT("about.jsp", "/about");
+	ERROR("404.jsp", "/error");
 	
 	private String jsp;
 	private String path;
@@ -26,7 +25,7 @@ public enum Default {
 	
 	public String getPath(HttpServletRequest request) {
 		
-		String requestURI = (String)request.getRequestURI().replace("/web/", "");
+		String requestURI = (String)request.getRequestURI().replaceFirst("/", "");
 		
 		String[] uriArray = requestURI.split("/");
 		
@@ -66,7 +65,7 @@ public enum Default {
 			}
 		}
 		
-		String[] split = requestURI.replace("/web/", "").split("/");
+		String[] split = requestURI.replaceFirst("/", "").split("/");
 		if (result == null && split.length < 2 && !split[0].equals("default")) {
 			File realFolder = new File(request.getServletContext().getRealPath("/"+split[0]));
 			

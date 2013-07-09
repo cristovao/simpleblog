@@ -46,7 +46,7 @@ public class Blog {
 		}
 
 		public String getWebPathPost() {
-			return "/web" + getPath();
+			return getPath();
 		}
 
 		@Override
@@ -238,8 +238,7 @@ public class Blog {
 	}
 
 	public String getPage(HttpServletRequest request) {
-		String requestURI = (String) request.getRequestURI().replace("/web/",
-				"");
+		String requestURI = (String) request.getRequestURI();
 
 		String[] uriArray = requestURI.split("/");
 

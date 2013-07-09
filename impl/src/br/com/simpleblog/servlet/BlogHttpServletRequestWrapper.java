@@ -15,7 +15,7 @@ public class BlogHttpServletRequestWrapper extends HttpServletRequestWrapper {
 	public BlogHttpServletRequestWrapper(HttpServletRequest request) {
 		super(request);
 		
-		String requestURI = request.getRequestURI().replace("/web/", "");
+		String requestURI = request.getRequestURI().replaceFirst("/", "");
 		
 		request.setAttribute(SIMPLE_REQUEST_URI, requestURI);
 		
