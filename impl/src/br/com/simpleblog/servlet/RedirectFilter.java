@@ -29,7 +29,7 @@ public class RedirectFilter implements Filter {
 		HttpServletRequest httpServletRequest = (HttpServletRequest)request;
 		HttpServletResponse httpServletResponse = (HttpServletResponse)response;
 		
-		if (httpServletRequest.getRequestURI().matches("/.*/[A-Za-z_0-9]*\\.[A-Za-z_0-9]*")) {
+		if (httpServletRequest.getRequestURI().matches("/.*/.*\\.[A-Za-z_0-9]*")) {
 			chain.doFilter(request, response);
 			return;
 		}
