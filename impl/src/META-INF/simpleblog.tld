@@ -151,4 +151,15 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<name>set</name>
+		<tagclass>br.com.simpleblog.taglib.SetTag</tagclass>
+		<bodycontent>JSP</bodycontent>
+		<info>Cria variaveis para serem usados em diversas areas do blog</info>
+		<attribute>
+			<name>var</name>
+			<required>false</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

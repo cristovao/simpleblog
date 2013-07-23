@@ -25,7 +25,12 @@ public enum Default {
 	
 	public String getPath(HttpServletRequest request) {
 		
-		String requestURI = (String)request.getRequestURI().replaceFirst("/", "");
+		String requestURI = null;
+		if (request.getRequestURI().startsWith("/")) {
+			requestURI = (String)request.getRequestURI().replaceFirst("/", "");
+		} else {
+			requestURI = (String)request.getRequestURI();
+		}
 		
 		String[] uriArray = requestURI.split("/");
 		
