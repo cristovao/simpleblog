@@ -1,4 +1,4 @@
-<%@ include file="/common.jsp" %>
+<%-- <%@ include file="/common.jsp" %> --%>
 
 <simpleblog:list-post var="post" date="${date}">
 	<h1><a href="${post.link}">${post.title}</a></h1>

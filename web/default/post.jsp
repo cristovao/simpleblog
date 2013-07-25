@@ -1,4 +1,4 @@
-<%@ include file="/common.jsp" %>
+<%-- <%@ include file="/common.jsp" %> --%>
 
 <simpleblog:input-title var="title">
 <h1>${title}</h1>

@@ -149,7 +149,7 @@ public class ListPostTag extends BodyTagSupport {
 				body = wrapper.getOutput().trim();
 			}
 			
-			post = new Post(body, postRequest.getWebPathPost(), title, postRequest.getPostDate());
+			post = new Post(body, request.getContextPath()+postRequest.getWebPathPost(), title, postRequest.getPostDate());
 		}
 
 		return post;

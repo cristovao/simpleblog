@@ -35,20 +35,26 @@ public class DecoratorFilter implements Filter {
 			return;
 		} 
 		
-		BlogHttpServletRequestWrapper blogHttpServletRequestWrapper = new BlogHttpServletRequestWrapper(httpServletRequest);
+		BlogHttpServletRequestWrapper blogHttpServletRequestWrapper = null;
+		
+		if(httpServletRequest instanceof BlogHttpServletRequestWrapper) {
+			blogHttpServletRequestWrapper = (BlogHttpServletRequestWrapper)httpServletRequest;
+		} else {
+			blogHttpServletRequestWrapper = new BlogHttpServletRequestWrapper(httpServletRequest);
+		}
 		
 		if (blogHttpServletRequestWrapper.hasBlog()) {
 			BufferedHttpResponseWrapper bufferedHttpResponseWrapper = new BufferedHttpResponseWrapper(httpServletResponse);
 			
-			chain.doFilter(request, bufferedHttpResponseWrapper);
+			chain.doFilter(blogHttpServletRequestWrapper, bufferedHttpResponseWrapper);
 			
-			request.setAttribute(BodyTag.class.getSimpleName(), new String(bufferedHttpResponseWrapper.getOutput()));
+			blogHttpServletRequestWrapper.setAttribute(BodyTag.class.getSimpleName(), new String(bufferedHttpResponseWrapper.getOutput()));
 			
-			String decorator = Default.DECORATOR.getPath(httpServletRequest);
+			String decorator = Default.DECORATOR.getPath(blogHttpServletRequestWrapper);
 			
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher(decorator);
+			RequestDispatcher requestDispatcher = blogHttpServletRequestWrapper.getRequestDispatcher(decorator);
 			
-			requestDispatcher.forward(request, response);
+			requestDispatcher.forward(blogHttpServletRequestWrapper, response);
 		}
 		
 	}

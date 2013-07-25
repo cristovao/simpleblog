@@ -1,4 +1,4 @@
-<%@ include file="/common.jsp" %>
+<%-- <%@ include file="/common.jsp" %> --%>
 
 <%-- <simpleblog:input-script src="/default/js/about.js" type="script"/> --%>
 

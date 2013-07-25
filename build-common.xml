@@ -39,7 +39,7 @@
 		</not>
 	</condition>
 	<property name="tomcat.deploy.path" value="${tomcat.path}/webapps"></property>
-	<property name="tomcat.root.path" value="${tomcat.deploy.path}/ROOT"></property>
+	<property name="tomcat.root.path" value="${tomcat.deploy.path}/${simpleblog.webapp}"></property>
 	<available property="tomcat.root.path.exists" type="dir" file="${tomcat.root.path}"/>
 	<property name="tomcat.webinf.path" value="${tomcat.root.path}/WEB-INF"></property>
 	<property name="tomcat.lib.path" value="${tomcat.webinf.path}/lib"></property>

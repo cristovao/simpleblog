@@ -34,17 +34,23 @@ public class RedirectFilter implements Filter {
 			return;
 		}
 		
-		BlogHttpServletRequestWrapper blogHttpServletRequestWrapper = new BlogHttpServletRequestWrapper(httpServletRequest);
+		BlogHttpServletRequestWrapper blogHttpServletRequestWrapper = null;
+		
+		if(httpServletRequest instanceof BlogHttpServletRequestWrapper) {
+			blogHttpServletRequestWrapper = (BlogHttpServletRequestWrapper)httpServletRequest;
+		} else {
+			blogHttpServletRequestWrapper = new BlogHttpServletRequestWrapper(httpServletRequest);
+		}
 		
 		if (blogHttpServletRequestWrapper.hasBlog()) {
 			
-			blogHttpServletRequestWrapper.setAttribute("blogPath", blogHttpServletRequestWrapper.getBlog().getPath());
+			blogHttpServletRequestWrapper.setAttribute("blogPath", blogHttpServletRequestWrapper.getContextPath()+blogHttpServletRequestWrapper.getBlog().getPath());
 			
 			RequestDispatcher requestDispatcher = blogHttpServletRequestWrapper.getRequestDispatcher();
 			
 			requestDispatcher.forward(blogHttpServletRequestWrapper, response);
 		} else {
-			RequestDispatcher requestDispatcher = request.getRequestDispatcher(Default.ERROR.getPath(httpServletRequest));
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(Default.ERROR.getPath(blogHttpServletRequestWrapper));
 			
 			requestDispatcher.forward(blogHttpServletRequestWrapper, response);
 		}

@@ -1,4 +1,4 @@
-<%@ include file="/common.jsp" %>
+<%-- <%@ include file="/common.jsp" %> --%>
 
 <simpleblog:input-title title="Erro 404">
 <h1>Essa paginas nao existe</h1>

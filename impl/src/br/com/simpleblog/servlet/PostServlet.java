@@ -32,7 +32,7 @@ public class PostServlet extends HttpServlet {
 				RequestDispatcher includerequestDispatcher = req
 						.getRequestDispatcher(postRequest.getPathJSP());
 				
-				req.setAttribute("postPath", postRequest.getPath());
+				req.setAttribute("postPath", req.getContextPath()+postRequest.getPath());
 				
 				req.setAttribute(DateTag.class.getSimpleName(), postRequest.getPostDate());
 				

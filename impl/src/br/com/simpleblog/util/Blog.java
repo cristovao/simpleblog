@@ -38,11 +38,11 @@ public class Blog {
 		}
 
 		public String getPath() {
-			return "/" + getName() + "/" + PATH_POST + "/" + path + "/";
+			return "/" + getName() + "/" + PATH_POST + "/" + path;
 		}
 
 		public String getPathJSP() {
-			return getPath() + POST_FILE;
+			return getPath() + "/" + POST_FILE;
 		}
 
 		public String getWebPathPost() {

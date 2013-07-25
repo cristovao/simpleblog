@@ -4,6 +4,8 @@ import java.io.File;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.simpleblog.servlet.BlogHttpServletRequestWrapper;
+
 public enum Default {
 
 	DECORATOR("decorator.jsp"),
@@ -23,19 +25,10 @@ public enum Default {
 		this.path = path;
 	}
 	
-	public String getPath(HttpServletRequest request) {
+	public String getPath(BlogHttpServletRequestWrapper request) {
 		
-		String requestURI = null;
-		if (request.getRequestURI().startsWith("/")) {
-			requestURI = (String)request.getRequestURI().replaceFirst("/", "");
-		} else {
-			requestURI = (String)request.getRequestURI();
-		}
-		
-		String[] uriArray = requestURI.split("/");
-		
-		if (uriArray.length > 0) {
-			String path = "/"+uriArray[0]+"/"+jsp;
+		if (request.hasBlog()) {
+			String path = "/"+request.getBlog().getName()+"/"+jsp;
 			
 			if (request.getServletContext().getResourceAsStream(path) != null) {
 				return path;
