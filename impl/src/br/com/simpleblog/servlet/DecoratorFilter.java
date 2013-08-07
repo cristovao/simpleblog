@@ -55,6 +55,10 @@ public class DecoratorFilter implements Filter {
 			RequestDispatcher requestDispatcher = blogHttpServletRequestWrapper.getRequestDispatcher(decorator);
 			
 			requestDispatcher.forward(blogHttpServletRequestWrapper, response);
+		} else {
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher(Default.ERROR.getPath(blogHttpServletRequestWrapper));
+			
+			requestDispatcher.forward(blogHttpServletRequestWrapper, response);
 		}
 		
 	}
