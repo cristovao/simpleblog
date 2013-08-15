@@ -17,6 +17,10 @@ public class DateTag extends BodyTagSupport {
 		
 		Date date = (Date)pageContext.getAttribute(DateTag.class.getSimpleName());
 		
+		if (date == null) {
+			date = (Date)pageContext.getRequest().getAttribute(DateTag.class.getSimpleName());
+		}
+		
 		if (date != null && getFormat() != null && !getFormat().isEmpty() 
 				&& getVar() != null && !getVar().isEmpty()) {
 			DateFormat format = new SimpleDateFormat(getFormat());
